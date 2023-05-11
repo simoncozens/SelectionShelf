@@ -67,7 +67,7 @@ class SelectionShelf(PalettePlugin):
         self.paletteView.frame.list = List((0, 0, -0, -30), [])
         self.paletteView.frame.name = EditText((0, -27, -80, 25), text="")
         self.paletteView.frame.save = Button(
-            (-80, -30, -5, -0), "Save", sizeStyle="small", callback=self.saveSelection
+            (-75, -30, -5, -0), "Save", sizeStyle="small", callback=self.saveSelection
         )
         self.dialog = self.paletteView.frame.getNSView()
 
@@ -160,6 +160,9 @@ class SelectionShelf(PalettePlugin):
             lambda thing: name in thing.userData.get(KEY, {})
             and newselection.append(thing),
         )
+        # "click" on the layer editor
+        gview = layer.font().currentTab.graphicView()
+        gview.window().makeFirstResponder_(gview)
         layer.selection = newselection
 
     @objc.python_method
